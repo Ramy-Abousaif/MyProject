@@ -27,7 +27,7 @@ DirectX::XMMATRIX Camera::GetMatrix() const noexcept
 
 void Camera::Reset() noexcept
 {
-	pos = { 0.0f,7.5f,-18.0f };
+	pos = {0.0f, 12.0f, -5.0f};
 	pitch = 0.0f;
 	yaw = 0.0f;
 }

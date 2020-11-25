@@ -28,30 +28,30 @@ void App::DoFrame()
 	light.Bind(wnd.Gfx(), player.cam.GetMatrix());
 
 	//floor
-	wall.Draw(wnd.Gfx(), dx::XMMatrixScaling(10, 1, 10) * dx::XMMatrixRotationRollPitchYaw(pos.roll, pos.pitch, pos.yaw) *
-		dx::XMMatrixTranslation(0, 7.5f, -5));
-	wall.Draw(wnd.Gfx(), dx::XMMatrixScaling(10, 1, 10) * dx::XMMatrixRotationRollPitchYaw(pos.roll, pos.pitch, pos.yaw) *
-		dx::XMMatrixTranslation(0, 7.5f, 5));
+	wall.Draw(wnd.Gfx(), dx::XMMatrixScaling(10.0f, 1.0f, 10.0f) * dx::XMMatrixRotationRollPitchYaw(pos.roll, pos.pitch, pos.yaw) *
+		dx::XMMatrixTranslation(0.0f, 7.5f, -5.0f));
+	wall.Draw(wnd.Gfx(), dx::XMMatrixScaling(10.0f, 1.0f, 10.0f) * dx::XMMatrixRotationRollPitchYaw(pos.roll, pos.pitch, pos.yaw) *
+		dx::XMMatrixTranslation(0.0f, 7.5f, 5.0f));
 	//ceiling
-	wall.Draw(wnd.Gfx(), dx::XMMatrixScaling(10, 1, 10) * dx::XMMatrixRotationRollPitchYaw(pos.roll, pos.pitch, pos.yaw) *
-		dx::XMMatrixTranslation(0, 18.0f, -5));
-	wall.Draw(wnd.Gfx(), dx::XMMatrixScaling(10, 1, 10) * dx::XMMatrixRotationRollPitchYaw(pos.roll, pos.pitch, pos.yaw) *
-		dx::XMMatrixTranslation(0, 18.0f, 5));
+	wall.Draw(wnd.Gfx(), dx::XMMatrixScaling(10.0f, 1.0f, 10.0f) * dx::XMMatrixRotationRollPitchYaw(pos.roll, pos.pitch, pos.yaw) *
+		dx::XMMatrixTranslation(0.0f, 18.0f, -5.0f));
+	wall.Draw(wnd.Gfx(), dx::XMMatrixScaling(10.0f, 1.0f, 10.0f) * dx::XMMatrixRotationRollPitchYaw(pos.roll, pos.pitch, pos.yaw) *
+		dx::XMMatrixTranslation(0.0f, 18.0f, 5.0f));
 	//right wall
-	wall.Draw(wnd.Gfx(), dx::XMMatrixScaling(1, 10, 10) * dx::XMMatrixRotationRollPitchYaw(pos.roll, pos.pitch, pos.yaw) *
+	wall.Draw(wnd.Gfx(), dx::XMMatrixScaling(1.0f, 10.0f, 10.0f) * dx::XMMatrixRotationRollPitchYaw(pos.roll, pos.pitch, pos.yaw) *
 		dx::XMMatrixTranslation(5.5f, 12.5f, -5.0f));
-	wall.Draw(wnd.Gfx(), dx::XMMatrixScaling(1, 10, 10) * dx::XMMatrixRotationRollPitchYaw(pos.roll, pos.pitch, pos.yaw) *
+	wall.Draw(wnd.Gfx(), dx::XMMatrixScaling(1.0f, 10.0f, 10.0f) * dx::XMMatrixRotationRollPitchYaw(pos.roll, pos.pitch, pos.yaw) *
 		dx::XMMatrixTranslation(5.5f, 12.5f, 5.0f));
 	//left wall
-	wall.Draw(wnd.Gfx(), dx::XMMatrixScaling(1, 10, 10) * dx::XMMatrixRotationRollPitchYaw(pos.roll, pos.pitch, pos.yaw) *
+	wall.Draw(wnd.Gfx(), dx::XMMatrixScaling(1.0f, 10.0f, 10.0f) * dx::XMMatrixRotationRollPitchYaw(pos.roll, pos.pitch, pos.yaw) *
 		dx::XMMatrixTranslation(-5.5f, 12.5f, -5.0f));
-	wall.Draw(wnd.Gfx(), dx::XMMatrixScaling(1, 10, 10) * dx::XMMatrixRotationRollPitchYaw(pos.roll, pos.pitch, pos.yaw) *
+	wall.Draw(wnd.Gfx(), dx::XMMatrixScaling(1.0f, 10.0f, 10.0f) * dx::XMMatrixRotationRollPitchYaw(pos.roll, pos.pitch, pos.yaw) *
 		dx::XMMatrixTranslation(-5.5f, 12.5f, 5.0f));
 	//back wall
-	wall.Draw(wnd.Gfx(), dx::XMMatrixScaling(10, 10, 1) * dx::XMMatrixRotationRollPitchYaw(pos.roll, pos.pitch, pos.yaw) *
+	wall.Draw(wnd.Gfx(), dx::XMMatrixScaling(10.0f, 10.0f, 1.0f) * dx::XMMatrixRotationRollPitchYaw(pos.roll, pos.pitch, pos.yaw) *
 		dx::XMMatrixTranslation(0.0f, 12.5f, -10.5f));
 	//front wall
-	wall.Draw(wnd.Gfx(), dx::XMMatrixScaling(10, 10, 1) * dx::XMMatrixRotationRollPitchYaw(pos.roll, pos.pitch, pos.yaw) *
+	wall.Draw(wnd.Gfx(), dx::XMMatrixScaling(10.0f, 10.0f, 1.0f) * dx::XMMatrixRotationRollPitchYaw(pos.roll, pos.pitch, pos.yaw) *
 		dx::XMMatrixTranslation(0.0f, 12.5f, 10.5f));
 	light.Draw(wnd.Gfx());
 
