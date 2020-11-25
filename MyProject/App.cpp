@@ -1,5 +1,4 @@
 #include "App.h"
-#include "Box.h"
 #include "Sheet.h"
 #include "SkinnedBox.h"
 #include <memory>
