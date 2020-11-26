@@ -1,4 +1,7 @@
 #pragma once
+#include <direct.h>
+#include "Window.h"
+
 class Collision
 {
 public:
@@ -20,10 +23,11 @@ public:
 			float max = 0;
 		} z;
 	};
+	Collision() = default;
 	Collision(float width, float height, float depth, float posX, float posY, float posZ);
 
-	bool isOverlapping(Box other);
+	bool isOverlapping(DirectX::XMFLOAT3 other);
 private:
-	Box bindingBox = {-0.5f, 0.5f, -0.5f, 0.5f, -0.5f, 0.5f};
+	Box bindingBox = { 0 };
 };
 

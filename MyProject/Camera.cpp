@@ -27,7 +27,7 @@ DirectX::XMMATRIX Camera::GetMatrix() const noexcept
 
 void Camera::Reset() noexcept
 {
-	pos = {0.0f, 12.0f, -5.0f};
+	pos = {5.0f, 12.0f, -5.0f};
 	pitch = 0.0f;
 	yaw = 0.0f;
 }
@@ -50,4 +50,9 @@ void Camera::Translate(DirectX::XMFLOAT3 translation) noexcept
 		pos.y + translation.y,
 		pos.z + translation.z
 	};
+}
+
+DirectX::XMFLOAT3 Camera::GetPos()
+{
+	return pos;
 }

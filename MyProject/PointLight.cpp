@@ -11,7 +11,7 @@ PointLight::PointLight(Graphics& gfx, float radius)
 void PointLight::Reset() noexcept
 {
 	cbData = {
-		{ 1.5f,14.0f,-4.5f },
+		{ 5.5f,14.0f,-4.5f },
 		{ 0.05f,0.05f,0.05f },
 		{ 1.0f,1.0f,1.0f },
 		1.0f,

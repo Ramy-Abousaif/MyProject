@@ -27,7 +27,7 @@ private:
 	float speed_factor = 1.0f;
 	PointLight light;
 	static constexpr size_t nDrawables = 180;
-	Wall wall{wnd.Gfx()};
+	Wall wall{wnd.Gfx(), 1, 1, 1, 1, 1, 1};
 	struct
 	{
 		float roll = 0.0f;

@@ -1,7 +1,12 @@
 #include "Wall.h"
-Wall::Wall(Graphics& gfx)
+Wall::Wall(Graphics& gfx, float width, float height, float depth, float x, float y, float z)
 {
 	namespace dx = DirectX;
+
+	if (!box)
+	{
+		box = new Collision(scaling.x, scaling.y, scaling.z, position.x, position.y, position.z);
+	}
 
 	if (!IsStaticInitialized())
 	{
@@ -53,8 +58,12 @@ Wall::Wall(Graphics& gfx)
 
 	AddBind(std::make_unique<TransformCbuf>(gfx, *this));
 }
-void Wall::Draw(Graphics& gfx, DirectX::FXMMATRIX accumulatedTransform) const noexcept (!IS_DEBUG)
+void Wall::Draw(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLOAT3 accumulatedPosition) const noexcept (!IS_DEBUG)
 {
-	DirectX::XMStoreFloat4x4(&transform, accumulatedTransform);
+	position = accumulatedPosition;
+	scaling = accumulatedScaling;
+	DirectX::XMMatrixScaling(accumulatedScaling.x, accumulatedScaling.y, accumulatedScaling.z) *
+		DirectX::XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f) *
+		DirectX::XMMatrixTranslation(accumulatedPosition.x, accumulatedPosition.y, accumulatedPosition.z);
 	Drawable::Draw(gfx);
 }
