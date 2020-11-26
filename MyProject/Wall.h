@@ -6,12 +6,29 @@
 #include "Surface.h"
 #include "Texture.h"
 #include "Sampler.h"
-#include "Collision.h"
 
-class Wall : public DrawableBase<Wall>, public Collision
+class Wall : public DrawableBase<Wall>
 {
 public:
-	Wall (Graphics& gfx, float width, float height, float depth, float x, float y, float z);
+	struct Box
+	{
+		struct
+		{
+			float min;
+			float max;
+		} x;
+		struct
+		{
+			float min;
+			float max;
+		} y;
+		struct
+		{
+			float min;
+			float max;
+		} z;
+	};
+	Wall (Graphics& gfx);
 	void Draw(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLOAT3 accumulatedPosition) const noexcept (!IS_DEBUG);
 	DirectX::XMMATRIX GetTransformXM() const noexcept override
 	{
@@ -19,8 +36,9 @@ public:
 			DirectX::XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f) *
 			DirectX::XMMatrixTranslation(position.x, position.y, position.z);
 	}
-	Collision* box;
+	bool isOverlapping(DirectX::XMFLOAT3 other);
 private:
 	mutable DirectX::XMFLOAT3 position;
 	mutable DirectX::XMFLOAT3 scaling;
+	mutable Box boundingBox;
 };

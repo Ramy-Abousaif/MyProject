@@ -86,7 +86,7 @@ void App::DoFrame()
 	RotateCam();
 	if (!wnd.CursorEnabled())
 	{
-		player.Update(wnd, dt);
+		player.Update(wnd, dt, wall);
 	}
 
 	wnd.Gfx().EndFrame();
