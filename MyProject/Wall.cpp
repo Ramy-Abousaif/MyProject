@@ -75,5 +75,5 @@ bool Wall::isOverlapping(DirectX::XMFLOAT3 other)
 {
 	return ((other.x >= boundingBox.x.min && other.x <= boundingBox.x.max) &&
 		(other.y >= boundingBox.y.min && other.y <= boundingBox.y.max) &&
-		(other.z >= boundingBox.z.min && other.z <= boundingBox.z.max))
+		(other.z >= boundingBox.z.min && other.z <= boundingBox.z.max));
 }
