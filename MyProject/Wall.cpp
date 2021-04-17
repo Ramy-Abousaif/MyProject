@@ -1,5 +1,5 @@
 #include "Wall.h"
-Wall::Wall(Graphics& gfx)
+Wall::Wall(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLOAT3 accumulatedPosition)
 {
 	namespace dx = DirectX;
 
@@ -52,16 +52,12 @@ Wall::Wall(Graphics& gfx)
 	}
 
 	AddBind(std::make_unique<TransformCbuf>(gfx, *this));
-}
-void Wall::Draw(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLOAT3 accumulatedPosition) const noexcept (!IS_DEBUG)
-{
+
 	position = accumulatedPosition;
 	scaling = accumulatedScaling;
 	DirectX::XMMatrixScaling(accumulatedScaling.x, accumulatedScaling.y, accumulatedScaling.z) *
 		DirectX::XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f) *
 		DirectX::XMMatrixTranslation(accumulatedPosition.x, accumulatedPosition.y, accumulatedPosition.z);
-
-	Drawable::Draw(gfx);
 
 	boundingBox.x.max = position.x + (scaling.x / 2);
 	boundingBox.x.min = position.x - (scaling.x / 2);
@@ -70,17 +66,14 @@ void Wall::Draw(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XM
 	boundingBox.z.max = position.z + (scaling.z / 2);
 	boundingBox.z.min = position.z - (scaling.z / 2);
 }
+void Wall::Draw(Graphics& gfx) const noexcept (!IS_DEBUG)
+{
+	Drawable::Draw(gfx);
+}
 
 bool Wall::isOverlapping(DirectX::XMFLOAT3 other)
 {
-	if ((other.x >= boundingBox.x.min && other.x <= boundingBox.x.max) &&
+	return ((other.x >= boundingBox.x.min && other.x <= boundingBox.x.max) &&
 		(other.y >= boundingBox.y.min && other.y <= boundingBox.y.max) &&
 		(other.z >= boundingBox.z.min && other.z <= boundingBox.z.max))
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
 }

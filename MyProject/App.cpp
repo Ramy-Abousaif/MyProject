@@ -17,6 +17,60 @@ App::App()
 	light(wnd.Gfx())
 {
 	wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 400.0f));
+
+	//floor
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
+		dx::XMFLOAT3(0.0f, 7.5f, -10.0f)));
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
+		dx::XMFLOAT3(0.0f, 7.5f, 10.0f)));
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
+		dx::XMFLOAT3(20.0f, 7.5f, -10.0f)));
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
+		dx::XMFLOAT3(-20.0f, 7.5f, 10.0f)));
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
+		dx::XMFLOAT3(20.0f, 7.5f, 10.0f)));
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
+		dx::XMFLOAT3(-20.0f, 7.5f, -10.0f)));
+	//ceiling
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
+		dx::XMFLOAT3(0.0f, 18.0f, -10.0f)));
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
+		dx::XMFLOAT3(0.0f, 18.0f, 10.0f)));
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
+		dx::XMFLOAT3(20.0f, 18.0f, -10.0f)));
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
+		dx::XMFLOAT3(-20.0f, 18.0f, 10.0f)));
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
+		dx::XMFLOAT3(20.0f, 18.0f, 10.0f)));
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
+		dx::XMFLOAT3(-20.0f, 18.0f, -10.0f)));
+	//right wall
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(1.0f, 20.0f, 20.0f),
+		dx::XMFLOAT3(30.5f, 12.5f, -10.0f)));
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(1.0f, 20.0f, 20.0f),
+		dx::XMFLOAT3(30.5f, 12.5f, 10.0f)));
+	//left wall
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(1.0f, 20.0f, 20.0f),
+		dx::XMFLOAT3(-30.5f, 12.5f, -10.0f)));
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(1.0f, 20.0f, 20.0f),
+		dx::XMFLOAT3(-30.5f, 12.5f, 10.0f)));
+	//back wall
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 20.0f, 1.0f),
+		dx::XMFLOAT3(-20.0f, 12.5f, -20.5f)));
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 20.0f, 1.0f),
+		dx::XMFLOAT3(20.0f, 12.5f, -20.5f)));
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 20.0f, 1.0f),
+		dx::XMFLOAT3(0.0f, 12.5f, -20.5f)));
+	//front wall
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 20.0f, 1.0f),
+		dx::XMFLOAT3(-20.0f, 12.5f, 20.5f)));
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 20.0f, 1.0f),
+		dx::XMFLOAT3(20.0f, 12.5f, 20.5f)));
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 20.0f, 1.0f),
+		dx::XMFLOAT3(0.0f, 12.5f, 20.5f)));
+	//Pillar
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(10.0f, 10.0f, 10.0f),
+		dx::XMFLOAT3(10.0f, 12.5f, 10.5f)));
 }
 
 void App::DoFrame()
@@ -26,59 +80,11 @@ void App::DoFrame()
 	wnd.Gfx().SetCamera(player.cam.GetMatrix());
 	light.Bind(wnd.Gfx(), player.cam.GetMatrix());
 
-	//floor
-	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
-		dx::XMFLOAT3(0.0f, 7.5f, -10.0f));
-	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
-		dx::XMFLOAT3(0.0f, 7.5f, 10.0f));
-	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
-		dx::XMFLOAT3(20.0f, 7.5f, -10.0f));
-	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
-		dx::XMFLOAT3(-20.0f, 7.5f, 10.0f));
-	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
-		dx::XMFLOAT3(20.0f, 7.5f, 10.0f));
-	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
-		dx::XMFLOAT3(-20.0f, 7.5f, -10.0f));
-	//ceiling
-	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
-		dx::XMFLOAT3(0.0f, 18.0f, -10.0f));
-	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
-		dx::XMFLOAT3(0.0f, 18.0f, 10.0f));
-	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
-		dx::XMFLOAT3(20.0f, 18.0f, -10.0f));
-	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
-		dx::XMFLOAT3(-20.0f, 18.0f, 10.0f));
-	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
-		dx::XMFLOAT3(20.0f, 18.0f, 10.0f));
-	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
-		dx::XMFLOAT3(-20.0f, 18.0f, -10.0f));
-	//right wall
-	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(1.0f, 20.0f, 20.0f),
-		dx::XMFLOAT3(30.5f, 12.5f, -10.0f));
-	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(1.0f, 20.0f, 20.0f),
-		dx::XMFLOAT3(30.5f, 12.5f, 10.0f));
-	//left wall
-	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(1.0f, 20.0f, 20.0f),
-		dx::XMFLOAT3(-30.5f, 12.5f, -10.0f));
-	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(1.0f, 20.0f, 20.0f),
-		dx::XMFLOAT3(-30.5f, 12.5f, 10.0f));
-	//back wall
-	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 20.0f, 1.0f),
-		dx::XMFLOAT3(-20.0f, 12.5f, -20.5f));
-	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 20.0f, 1.0f),
-		dx::XMFLOAT3(20.0f, 12.5f, -20.5f));
-	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 20.0f, 1.0f),
-		dx::XMFLOAT3(0.0f, 12.5f, -20.5f));
-	//front wall
-	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 20.0f, 1.0f),
-		dx::XMFLOAT3(-20.0f, 12.5f, 20.5f));
-	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 20.0f, 1.0f),
-		dx::XMFLOAT3(20.0f, 12.5f, 20.5f));
-	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 20.0f, 1.0f),
-		dx::XMFLOAT3(0.0f, 12.5f, 20.5f));
-	//Pillar
-	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(10.0f, 10.0f, 10.0f),
-		dx::XMFLOAT3(10.0f, 12.5f, 10.5f));
+
+	for (auto& obj : wall)
+	{
+		obj.get()->Draw(wnd.Gfx());
+	}
 
 	ConfineCursor();
 
@@ -87,10 +93,11 @@ void App::DoFrame()
 	if (!wnd.CursorEnabled())
 	{
 		player.Update(wnd, dt);
-		for (int i = 0; i < 23; i++)
-		{
-			player.CheckCollisions(wnd, wall);
-		}
+	}
+
+	for (auto& obj : wall)
+	{
+		player.CheckCollisions(wnd, obj.get());
 	}
 
 	wnd.Gfx().EndFrame();

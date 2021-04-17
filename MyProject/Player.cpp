@@ -40,9 +40,9 @@ void Player::Update(Window& wnd, float dt)
 	}
 }
 
-void Player::CheckCollisions(Window& wnd, Wall& wall)
+void Player::CheckCollisions(Window& wnd, Wall* wall)
 {
-	if (wall.isOverlapping(GetPos()))
+	if (wall->isOverlapping(GetPos()))
 	{
 		wnd.SetTitle("True");
 	}

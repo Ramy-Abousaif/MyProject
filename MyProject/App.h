@@ -3,9 +3,8 @@
 #include "MyTimer.h"
 #include "Player.h"
 #include "PointLight.h"
-#include "SkinnedBox.h"
-#include "Wall.h"
 #include <set>
+#include <memory>
 
 class App
 {
@@ -25,5 +24,5 @@ private:
 	float speed_factor = 1.0f;
 	PointLight light;
 	static constexpr size_t nDrawables = 180;
-	Wall wall{wnd.Gfx()};
+	std::vector<std::unique_ptr<class Wall>> wall;
 };

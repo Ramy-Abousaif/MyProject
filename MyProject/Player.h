@@ -13,7 +13,7 @@ public:
 	Keyboard kbd;
 	void SetUp();
 	DirectX::XMFLOAT3 GetPos();
-	void CheckCollisions(Window& wnd, Wall& wall);
+	void CheckCollisions(Window& wnd, Wall* wall);
 private:
 	float player_speed = 2.0f;
 	float x = 0;
