@@ -61,14 +61,14 @@ void Wall::Draw(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XM
 		DirectX::XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f) *
 		DirectX::XMMatrixTranslation(accumulatedPosition.x, accumulatedPosition.y, accumulatedPosition.z);
 
+	Drawable::Draw(gfx);
+
 	boundingBox.x.max = position.x + (scaling.x / 2);
 	boundingBox.x.min = position.x - (scaling.x / 2);
 	boundingBox.y.max = position.y + (scaling.y / 2);
 	boundingBox.y.min = position.y - (scaling.y / 2);
 	boundingBox.z.max = position.z + (scaling.z / 2);
 	boundingBox.z.min = position.z - (scaling.z / 2);
-
-	Drawable::Draw(gfx);
 }
 
 bool Wall::isOverlapping(DirectX::XMFLOAT3 other)

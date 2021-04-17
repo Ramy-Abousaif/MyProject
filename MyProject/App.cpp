@@ -36,7 +36,7 @@ void App::DoFrame()
 	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
 		dx::XMFLOAT3(-20.0f, 7.5f, 10.0f));
 	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
-		dx::XMFLOAT3(20.0f, 7.5f, +10.0f));
+		dx::XMFLOAT3(20.0f, 7.5f, 10.0f));
 	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
 		dx::XMFLOAT3(-20.0f, 7.5f, -10.0f));
 	//ceiling
@@ -49,7 +49,7 @@ void App::DoFrame()
 	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
 		dx::XMFLOAT3(-20.0f, 18.0f, 10.0f));
 	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
-		dx::XMFLOAT3(20.0f, 18.0f, +10.0f));
+		dx::XMFLOAT3(20.0f, 18.0f, 10.0f));
 	wall.Draw(wnd.Gfx(), dx::XMFLOAT3(20.0f, 1.0f, 20.0f),
 		dx::XMFLOAT3(-20.0f, 18.0f, -10.0f));
 	//right wall
@@ -86,7 +86,11 @@ void App::DoFrame()
 	RotateCam();
 	if (!wnd.CursorEnabled())
 	{
-		player.Update(wnd, dt, wall);
+		player.Update(wnd, dt);
+		for (int i = 0; i < 23; i++)
+		{
+			player.CheckCollisions(wnd, wall);
+		}
 	}
 
 	wnd.Gfx().EndFrame();

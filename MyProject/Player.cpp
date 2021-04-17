@@ -11,17 +11,9 @@ Player::~Player()
 {
 }
 
-void Player::Update(Window& wnd, float dt, Wall& wall)
+void Player::Update(Window& wnd, float dt)
 {
 	SetUp();
-	if (wall.isOverlapping(GetPos()))
-	{
-		wnd.SetTitle("True");
-	}
-	else
-	{
-		wnd.SetTitle("false");
-	}
 	if (wnd.kbd.KeyIsPressed('W'))
 	{
 		cam.Translate({ 0.0f,0.0f,dt * player_speed});
@@ -45,6 +37,18 @@ void Player::Update(Window& wnd, float dt, Wall& wall)
 	if (wnd.kbd.KeyIsPressed('F'))
 	{
 		cam.Translate({ 0.0f,-dt * player_speed,0.0f });
+	}
+}
+
+void Player::CheckCollisions(Window& wnd, Wall& wall)
+{
+	if (wall.isOverlapping(GetPos()))
+	{
+		wnd.SetTitle("True");
+	}
+	else
+	{
+		wnd.SetTitle("false");
 	}
 }
 
