@@ -6,6 +6,7 @@
 #include "MyMath.h"
 #include "Surface.h"
 #include "GDIPlusManager.h"
+#include <iostream>
 
 namespace dx = DirectX;
 
@@ -101,7 +102,9 @@ void App::DoFrame()
 	{
 		if (player.CheckCollisions(wnd, obj.get()))
 		{
-			//Add Resistive Force
+			//Add resistive force
+			wnd.SetTitle(std::to_string(obj.get()->GetContactPoint().x) + " " + std::to_string(obj.get()->GetContactPoint().y)
+				+ " " + std::to_string(obj.get()->GetContactPoint().z));
 		}
 	}
 

@@ -73,7 +73,25 @@ void Wall::Draw(Graphics& gfx) const noexcept (!IS_DEBUG)
 
 bool Wall::isOverlapping(DirectX::XMFLOAT3 other)
 {
-	return ((other.x >= boundingBox.x.min && other.x <= boundingBox.x.max) &&
+	if ((other.x >= boundingBox.x.min && other.x <= boundingBox.x.max) &&
 		(other.y >= boundingBox.y.min && other.y <= boundingBox.y.max) &&
-		(other.z >= boundingBox.z.min && other.z <= boundingBox.z.max));
+		(other.z >= boundingBox.z.min && other.z <= boundingBox.z.max))
+	{
+		if (!entered)
+		{
+			contact_point = DirectX::XMFLOAT3(other.x, other.y, other.z);
+			entered = true;
+		}
+		return true;
+	}
+	else
+	{
+		entered = false;
+		return false;
+	}
+}
+
+DirectX::XMFLOAT3 Wall::GetContactPoint()
+{
+	return contact_point;
 }

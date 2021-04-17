@@ -37,8 +37,11 @@ public:
 			DirectX::XMMatrixTranslation(position.x, position.y, position.z);
 	}
 	bool isOverlapping(DirectX::XMFLOAT3 other);
+	DirectX::XMFLOAT3 GetContactPoint();
 private:
 	mutable DirectX::XMFLOAT3 position;
 	mutable DirectX::XMFLOAT3 scaling;
+	DirectX::XMFLOAT3 contact_point;
+	bool entered = false;
 	Box boundingBox;
 };
