@@ -10,25 +10,14 @@ public:
 	DirectX::XMMATRIX GetTransformXM() const noexcept override
 	{
 		return DirectX::XMMatrixScaling(scaling.x, scaling.y, scaling.z) *
-			DirectX::XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f) *
+			DirectX::XMMatrixRotationRollPitchYaw(roll, pitch, yaw) *
 			DirectX::XMMatrixTranslation(position.x, position.y, position.z);
 	}
 private:
 	mutable DirectX::XMFLOAT3 position;
 	mutable DirectX::XMFLOAT3 scaling;
-	// positional
-	float r;
+	//rotational
 	float roll = 0.0f;
 	float pitch = 0.0f;
 	float yaw = 0.0f;
-	float theta;
-	float phi;
-	float chi;
-	// speed (delta/s)
-	float droll;
-	float dpitch;
-	float dyaw;
-	float dtheta;
-	float dphi;
-	float dchi;
 };

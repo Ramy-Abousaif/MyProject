@@ -73,18 +73,15 @@ Sheet::Sheet(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLO
 	position = accumulatedPosition;
 	scaling = accumulatedScaling;
 	DirectX::XMMatrixScaling(accumulatedScaling.x, accumulatedScaling.y, accumulatedScaling.z) *
-		DirectX::XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f) *
+		DirectX::XMMatrixRotationRollPitchYaw(roll, pitch, yaw) *
 		DirectX::XMMatrixTranslation(accumulatedPosition.x, accumulatedPosition.y, accumulatedPosition.z);
 }
 
 void Sheet::RotateTowards(DirectX::XMFLOAT3 player, float dt)
 {
-	pitch += player.x * dt;
-	roll += player.y * dt;
-	yaw += player.z * dt;
-	 DirectX::XMMatrixScaling(scaling.x, scaling.y, scaling.z) *
-		DirectX::XMMatrixRotationRollPitchYaw(pitch, roll, yaw) *
-		DirectX::XMMatrixTranslation(position.x, position.y, position.z);
+	pitch = ((position.x - player.x) + (position.z - player.z)) * dt;
+	//roll = -player.y * dt;
+	//yaw = player.x * dt * 10;
 }
 
 void Sheet::Draw(Graphics& gfx) const noexcept (!IS_DEBUG)

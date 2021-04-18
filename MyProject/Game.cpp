@@ -36,7 +36,7 @@ void Game::DoFrame()
 	for (auto& obj : sheet)
 	{
 		obj.get()->Draw(wnd.Gfx());
-		obj.get()->RotateTowards(player.GetPos(), dt);
+		obj.get()->RotateTowards(player.GetPos(), player.GetSpeed() * 0.05f);
 	}
 
 	ConfineCursor();
@@ -172,6 +172,8 @@ void Game::SetUpMap()
 
 	sheet.push_back(std::make_unique<Sheet>(wnd.Gfx(), dx::XMFLOAT3(1.0f, 1.0f, 1.0f),
 		dx::XMFLOAT3(0.0f, 12.0f, 5.0f)));
+	sheet.push_back(std::make_unique<Sheet>(wnd.Gfx(), dx::XMFLOAT3(1.0f, 1.0f, 1.0f),
+		dx::XMFLOAT3(5.0f, 12.0f, 5.0f)));
 }
 
 

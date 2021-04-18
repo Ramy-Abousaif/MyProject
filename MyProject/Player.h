@@ -15,6 +15,7 @@ public:
 	DirectX::XMFLOAT3 GetPos();
 	bool CheckCollisions(Window& wnd, Wall* wall);
 	void AddResistiveForce(DirectX::XMFLOAT3 force, float dt);
+	float GetSpeed();
 private:
 	void CheckInputs(Window& wnd);
 	DirectX::XMFLOAT3 inputs;

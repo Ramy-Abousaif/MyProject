@@ -42,6 +42,11 @@ void Player::SetUp()
 	z = cam.GetPos().z;
 }
 
+float Player::GetSpeed()
+{
+	return player_speed;
+}
+
 DirectX::XMFLOAT3 Player::GetPos()
 {
 	return DirectX::XMFLOAT3(x, y, z);
