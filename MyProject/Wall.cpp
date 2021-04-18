@@ -59,12 +59,12 @@ Wall::Wall(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLOAT
 		DirectX::XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f) *
 		DirectX::XMMatrixTranslation(accumulatedPosition.x, accumulatedPosition.y, accumulatedPosition.z);
 
-	boundingBox.x.max = position.x + (scaling.x / 2);
-	boundingBox.x.min = position.x - (scaling.x / 2);
-	boundingBox.y.max = position.y + (scaling.y / 2);
-	boundingBox.y.min = position.y - (scaling.y / 2);
-	boundingBox.z.max = position.z + (scaling.z / 2);
-	boundingBox.z.min = position.z - (scaling.z / 2);
+	boundingBox.x.max = position.x + (scaling.x / 2) + 1.0f;
+	boundingBox.x.min = position.x - (scaling.x / 2) - 1.0f;
+	boundingBox.y.max = position.y + (scaling.y / 2) + 1.0f;
+	boundingBox.y.min = position.y - (scaling.y / 2) - 1.0f;
+	boundingBox.z.max = position.z + (scaling.z / 2) + 1.0f;
+	boundingBox.z.min = position.z - (scaling.z / 2) - 1.0f;
 }
 void Wall::Draw(Graphics& gfx) const noexcept (!IS_DEBUG)
 {

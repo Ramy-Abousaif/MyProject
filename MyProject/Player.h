@@ -14,7 +14,7 @@ public:
 	void SetUp();
 	DirectX::XMFLOAT3 GetPos();
 	bool CheckCollisions(Window& wnd, Wall* wall);
-	void AddResistiveForce(DirectX::XMFLOAT3 force, float dt) noexcept;
+	void AddResistiveForce(DirectX::XMFLOAT3 force, float dt);
 private:
 	void CheckInputs(Window& wnd);
 	DirectX::XMFLOAT3 inputs;
