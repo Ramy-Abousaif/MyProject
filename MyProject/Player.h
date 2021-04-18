@@ -16,6 +16,8 @@ public:
 	bool CheckCollisions(Window& wnd, Wall* wall);
 	void AddResistiveForce(DirectX::XMFLOAT3 force, float dt) noexcept;
 private:
+	void CheckInputs(Window& wnd);
+	DirectX::XMFLOAT3 inputs;
 	float player_speed = 2.0f;
 	float x = 0;
 	float y = 0;

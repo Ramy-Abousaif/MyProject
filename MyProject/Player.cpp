@@ -14,30 +14,8 @@ Player::~Player()
 void Player::Update(Window& wnd, float dt)
 {
 	SetUp();
-	if (wnd.kbd.KeyIsPressed('W'))
-	{
-		cam.Translate({ 0.0f,0.0f,dt * player_speed});
-	}
-	if (wnd.kbd.KeyIsPressed('A'))
-	{
-		cam.Translate({ -dt * player_speed,0.0f,0.0f });
-	}
-	if (wnd.kbd.KeyIsPressed('S'))
-	{
-		cam.Translate({ 0.0f,0.0f,-dt * player_speed });
-	}
-	if (wnd.kbd.KeyIsPressed('D'))
-	{
-		cam.Translate({ dt * player_speed,0.0f,0.0f });
-	}
-	if (wnd.kbd.KeyIsPressed('R'))
-	{
-		cam.Translate({ 0.0f,dt * player_speed,0.0f });
-	}
-	if (wnd.kbd.KeyIsPressed('F'))
-	{
-		cam.Translate({ 0.0f,-dt * player_speed,0.0f });
-	}
+	CheckInputs(wnd);
+	cam.Translate({ inputs.x * dt * player_speed, inputs.y * dt * player_speed, inputs.z * dt * player_speed });
 }
 
 bool Player::CheckCollisions(Window& wnd, Wall* wall)
@@ -48,6 +26,13 @@ bool Player::CheckCollisions(Window& wnd, Wall* wall)
 void Player::AddResistiveForce(DirectX::XMFLOAT3 force, float dt) noexcept
 {
 	cam.Translate({force.x * dt * player_speed, 0, force.z * dt * player_speed });
+}
+
+void Player::CheckInputs(Window& wnd)
+{
+	inputs = { (float)(wnd.kbd.KeyIsPressed('D') - (wnd.kbd.KeyIsPressed('A'))),
+		(float)(wnd.kbd.KeyIsPressed('R') - (wnd.kbd.KeyIsPressed('F'))),
+		(float)(wnd.kbd.KeyIsPressed('W') - (wnd.kbd.KeyIsPressed('S'))) };
 }
 
 void Player::SetUp()
