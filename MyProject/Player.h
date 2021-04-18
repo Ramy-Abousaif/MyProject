@@ -14,6 +14,7 @@ public:
 	void SetUp();
 	DirectX::XMFLOAT3 GetPos();
 	bool CheckCollisions(Window& wnd, Wall* wall);
+	void AddResistiveForce(DirectX::XMFLOAT3 force, float dt) noexcept;
 private:
 	float player_speed = 2.0f;
 	float x = 0;

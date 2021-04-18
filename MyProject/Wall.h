@@ -38,6 +38,7 @@ public:
 	}
 	bool isOverlapping(DirectX::XMFLOAT3 other);
 	DirectX::XMFLOAT3 GetContactPoint();
+	DirectX::XMFLOAT3 GetPos();
 private:
 	mutable DirectX::XMFLOAT3 position;
 	mutable DirectX::XMFLOAT3 scaling;

@@ -45,6 +45,11 @@ bool Player::CheckCollisions(Window& wnd, Wall* wall)
 	return (wall->isOverlapping(GetPos()));
 }
 
+void Player::AddResistiveForce(DirectX::XMFLOAT3 force, float dt) noexcept
+{
+	cam.Translate({force.x * dt * player_speed, 0, force.z * dt * player_speed });
+}
+
 void Player::SetUp()
 {
 	x = cam.GetPos().x;

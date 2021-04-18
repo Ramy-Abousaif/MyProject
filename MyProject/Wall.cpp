@@ -95,3 +95,8 @@ DirectX::XMFLOAT3 Wall::GetContactPoint()
 {
 	return contact_point;
 }
+
+DirectX::XMFLOAT3 Wall::GetPos()
+{
+	return position;
+}
