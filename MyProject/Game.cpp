@@ -105,15 +105,15 @@ void Game::DoFrame()
 	{
 		if (player.CheckCollisions(wnd, obj.get()))
 		{
-			dx::XMFLOAT3 pointA = obj.get()->GetPos();
-			dx::XMFLOAT3 pointB = obj.get()->GetContactPoint();
+			dx::XMFLOAT3 pointA = { obj.get()->GetPos().x, 0, obj.get()->GetPos().z };
+			dx::XMFLOAT3 pointB = { obj.get()->GetContactPoint().x, 0, obj.get()->GetContactPoint().z };
 			float distance = sqrt((pointB.x - pointA.x) * (pointB.x - pointA.x) +
 				(pointB.y - pointA.y) * (pointB.y - pointA.y) +
 				(pointB.z - pointA.z) * (pointB.z - pointA.z));
-			dx::XMFLOAT3 force = dx::XMFLOAT3((pointB.x - pointA.x) / distance, 0, (pointB.z - pointA.z) / distance);
+			dx::XMFLOAT3 force = dx::XMFLOAT3((pointB.x - pointA.x) / distance, (pointB.y - pointA.y) / distance, (pointB.z - pointA.z) / distance);
 
 			//Add resistive force
-			player.AddResistiveForce(force, dt * 1.2f);
+			player.AddResistiveForce(force, dt * 1.0f);
 		}
 	}
 
