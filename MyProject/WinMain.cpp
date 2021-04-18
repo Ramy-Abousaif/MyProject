@@ -9,7 +9,7 @@ int CALLBACK WinMain(
 {
 	try
 	{
-		return App{}.Go();
+		return Game{}.Go();
 	}
 	catch (const MyException& e)
 	{

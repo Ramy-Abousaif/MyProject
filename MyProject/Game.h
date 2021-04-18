@@ -6,13 +6,13 @@
 #include <set>
 #include <memory>
 
-class App
+class Game
 {
 public:
-	App();
+	Game();
 	// master frame / message loop
 	int Go();
-	~App();
+	~Game();
 private:
 	void DoFrame();
 	void RotateCam();

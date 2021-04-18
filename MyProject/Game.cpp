@@ -1,4 +1,4 @@
-#include "App.h"
+#include "Game.h"
 #include "Sheet.h"
 #include "SkinnedBox.h"
 #include <memory>
@@ -11,7 +11,7 @@ namespace dx = DirectX;
 
 GDIPlusManager gdipm;
 
-App::App()
+Game::Game()
 	:
 	wnd(1280, 720, "FPS Game"),
 	light(wnd.Gfx())
@@ -79,7 +79,7 @@ App::App()
 		dx::XMFLOAT3(-10.0f, 10.0f, 10.5f)));
 }
 
-void App::DoFrame()
+void Game::DoFrame()
 {
 	const auto dt = timer.Mark() * speed_factor;
 	wnd.Gfx().BeginFrame(0.37f, 0.0f, 0.0f);
@@ -120,10 +120,10 @@ void App::DoFrame()
 	wnd.Gfx().EndFrame();
 }
 
-App::~App()
+Game::~Game()
 {}
 
-void App::ConfineCursor()
+void Game::ConfineCursor()
 {
 	while (const auto e = wnd.kbd.ReadKey())
 	{
@@ -150,7 +150,7 @@ void App::ConfineCursor()
 	}
 }
 
-void App::RotateCam()
+void Game::RotateCam()
 {
 	while (const auto delta = wnd.mouse.ReadRawDelta())
 	{
@@ -162,7 +162,7 @@ void App::RotateCam()
 }
 
 
-int App::Go()
+int Game::Go()
 {
 	while (true)
 	{
