@@ -36,7 +36,7 @@ void Game::DoFrame()
 	for (auto& obj : sheet)
 	{
 		obj.get()->Draw(wnd.Gfx());
-		obj.get()->RotateTowards(player.GetPos(), player.GetSpeed() * 0.05f);
+		obj.get()->RotateTowards(player.GetPos());
 	}
 
 	ConfineCursor();
