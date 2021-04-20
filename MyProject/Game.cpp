@@ -171,9 +171,9 @@ void Game::SetUpMap()
 		dx::XMFLOAT3(-10.0f, 10.0f, 10.5f)));
 
 	sheet.push_back(std::make_unique<Sheet>(wnd.Gfx(), dx::XMFLOAT3(1.0f, 1.0f, 1.0f),
-		dx::XMFLOAT3(0.0f, 12.0f, 5.0f)));
+		dx::XMFLOAT3(0.0f, 12.0f, -5.0f)));
 	sheet.push_back(std::make_unique<Sheet>(wnd.Gfx(), dx::XMFLOAT3(1.0f, 1.0f, 1.0f),
-		dx::XMFLOAT3(5.0f, 12.0f, 5.0f)));
+		dx::XMFLOAT3(5.0f, 12.0f, -5.0f)));
 }
 
 

@@ -10,7 +10,7 @@ public:
 	DirectX::XMMATRIX GetTransformXM() const noexcept override
 	{
 		return DirectX::XMMatrixScaling(scaling.x, scaling.y, scaling.z) *
-			DirectX::XMMatrixRotationRollPitchYaw(roll, pitch, yaw) *
+			DirectX::XMMatrixRotationRollPitchYaw(0, pitch, 0) *
 			DirectX::XMMatrixTranslation(position.x, position.y, position.z);
 	}
 private:
