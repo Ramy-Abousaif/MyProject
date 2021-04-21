@@ -24,7 +24,7 @@ Sheet::Sheet(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLO
 				float v;
 			} tex;
 		};
-		auto model = Plane::Make<Vertex>();
+		auto model = Plane::MakeSkinned<Vertex>();
 		model.vertices[0].tex = { 0.0f,0.0f };
 		model.vertices[1].tex = { 1.0f,0.0f };
 		model.vertices[2].tex = { 0.0f,1.0f };
