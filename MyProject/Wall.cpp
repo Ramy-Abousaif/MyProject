@@ -1,5 +1,5 @@
 #include "Wall.h"
-Wall::Wall(Graphics& gfx)
+Wall::Wall(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLOAT3 accumulatedPosition)
 {
 	namespace dx = DirectX;
 
@@ -52,22 +52,22 @@ Wall::Wall(Graphics& gfx)
 	}
 
 	AddBind(std::make_unique<TransformCbuf>(gfx, *this));
-}
-void Wall::Draw(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLOAT3 accumulatedPosition) const noexcept (!IS_DEBUG)
-{
+
 	position = accumulatedPosition;
 	scaling = accumulatedScaling;
 	DirectX::XMMatrixScaling(accumulatedScaling.x, accumulatedScaling.y, accumulatedScaling.z) *
 		DirectX::XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f) *
 		DirectX::XMMatrixTranslation(accumulatedPosition.x, accumulatedPosition.y, accumulatedPosition.z);
 
-	boundingBox.x.max = position.x + (scaling.x / 2);
-	boundingBox.x.min = position.x - (scaling.x / 2);
-	boundingBox.y.max = position.y + (scaling.y / 2);
-	boundingBox.y.min = position.y - (scaling.y / 2);
-	boundingBox.z.max = position.z + (scaling.z / 2);
-	boundingBox.z.min = position.z - (scaling.z / 2);
-
+	boundingBox.x.max = position.x + (scaling.x / 2) + 1.0f;
+	boundingBox.x.min = position.x - (scaling.x / 2) - 1.0f;
+	boundingBox.y.max = position.y + (scaling.y / 2) + 1.0f;
+	boundingBox.y.min = position.y - (scaling.y / 2) - 1.0f;
+	boundingBox.z.max = position.z + (scaling.z / 2) + 1.0f;
+	boundingBox.z.min = position.z - (scaling.z / 2) - 1.0f;
+}
+void Wall::Draw(Graphics& gfx) const noexcept (!IS_DEBUG)
+{
 	Drawable::Draw(gfx);
 }
 
@@ -77,10 +77,26 @@ bool Wall::isOverlapping(DirectX::XMFLOAT3 other)
 		(other.y >= boundingBox.y.min && other.y <= boundingBox.y.max) &&
 		(other.z >= boundingBox.z.min && other.z <= boundingBox.z.max))
 	{
+		if (!entered)
+		{
+			contact_point = DirectX::XMFLOAT3(other.x, other.y, other.z);
+			entered = true;
+		}
 		return true;
 	}
 	else
 	{
+		entered = false;
 		return false;
 	}
+}
+
+DirectX::XMFLOAT3 Wall::GetContactPoint()
+{
+	return contact_point;
+}
+
+DirectX::XMFLOAT3 Wall::GetPos()
+{
+	return position;
 }

@@ -4,27 +4,18 @@
 class Sheet : public DrawableBase<Sheet>
 {
 public:
-	Sheet(Graphics& gfx, std::mt19937& rng,
-		std::uniform_real_distribution<float>& adist,
-		std::uniform_real_distribution<float>& ddist,
-		std::uniform_real_distribution<float>& odist,
-		std::uniform_real_distribution<float>& rdist);
-	void Update(float dt) noexcept override;
-	DirectX::XMMATRIX GetTransformXM() const noexcept override;
+	Sheet(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLOAT3 accumulatedPosition);
+	void Draw(Graphics& gfx) const noexcept (!IS_DEBUG);
+	void RotateTowards(DirectX::XMFLOAT3 player);
+	DirectX::XMMATRIX GetTransformXM() const noexcept override
+	{
+		return DirectX::XMMatrixScaling(scaling.x, scaling.y, scaling.z) *
+			DirectX::XMMatrixRotationRollPitchYaw(0, rotY, 0) *
+			DirectX::XMMatrixTranslation(position.x, position.y, position.z);
+	}
 private:
-	// positional
-	float r;
-	float roll = 0.0f;
-	float pitch = 0.0f;
-	float yaw = 0.0f;
-	float theta;
-	float phi;
-	float chi;
-	// speed (delta/s)
-	float droll;
-	float dpitch;
-	float dyaw;
-	float dtheta;
-	float dphi;
-	float dchi;
+	mutable DirectX::XMFLOAT3 position;
+	mutable DirectX::XMFLOAT3 scaling;
+	//rotational
+	float rotY = 0.0f;
 };

@@ -28,8 +28,8 @@ public:
 			float max;
 		} z;
 	};
-	Wall (Graphics& gfx);
-	void Draw(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLOAT3 accumulatedPosition) const noexcept (!IS_DEBUG);
+	Wall(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLOAT3 accumulatedPosition);
+	void Draw(Graphics& gfx) const noexcept (!IS_DEBUG);
 	DirectX::XMMATRIX GetTransformXM() const noexcept override
 	{
 		return DirectX::XMMatrixScaling(scaling.x, scaling.y, scaling.z) *
@@ -37,8 +37,12 @@ public:
 			DirectX::XMMatrixTranslation(position.x, position.y, position.z);
 	}
 	bool isOverlapping(DirectX::XMFLOAT3 other);
+	DirectX::XMFLOAT3 GetContactPoint();
+	DirectX::XMFLOAT3 GetPos();
 private:
 	mutable DirectX::XMFLOAT3 position;
 	mutable DirectX::XMFLOAT3 scaling;
-	mutable Box boundingBox;
+	DirectX::XMFLOAT3 contact_point;
+	bool entered = false;
+	Box boundingBox;
 };
