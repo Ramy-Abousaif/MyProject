@@ -19,7 +19,7 @@ public:
 private:
 	void CheckInputs(Window& wnd);
 	DirectX::XMFLOAT3 inputs;
-	float player_speed = 2.0f;
+	float player_speed = 24.0f;
 	float x = 0;
 	float y = 0;
 	float z = 0;
