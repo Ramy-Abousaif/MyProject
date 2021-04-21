@@ -15,7 +15,7 @@ DirectX::XMMATRIX Camera::GetMatrix() const noexcept
 	const dx::XMVECTOR forwardBaseVector = XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
 	// apply the camera rotations to a base vector
 	const auto lookVector = XMVector3Transform(forwardBaseVector,
-		XMMatrixRotationRollPitchYaw(pitch, yaw, 0.0f)
+		XMMatrixRotationRollPitchYaw(0.0f, rotY, 0.0f)
 	);
 	// generate camera transform (applied to all objects to arrange them relative
 	// to camera position/orientation in world) from cam position and direction
@@ -28,21 +28,19 @@ DirectX::XMMATRIX Camera::GetMatrix() const noexcept
 void Camera::Reset() noexcept
 {
 	pos = {5.0f, 9.0f, -5.0f};
-	pitch = 0.0f;
-	yaw = 0.0f;
+	rotY = 0.0f;
 }
 
-void Camera::Rotate(float dx, float dy) noexcept
+void Camera::Rotate(float rotation) noexcept
 {
-	yaw = wrap_angle(yaw + dx * rotationSpeed);
-	pitch = 0;
+	rotY = rotation;
 }
 
 void Camera::Translate(DirectX::XMFLOAT3 translation) noexcept
 {
 	dx::XMStoreFloat3(&translation, dx::XMVector3Transform(
 		dx::XMLoadFloat3(&translation),
-		dx::XMMatrixRotationRollPitchYaw(pitch, yaw, 0.0f) *
+		dx::XMMatrixRotationRollPitchYaw(0.0f, rotY, 0.0f) *
 		dx::XMMatrixScaling(1.0f, 1.0f, 1.0f)
 	));
 	pos = {

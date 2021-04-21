@@ -15,7 +15,6 @@ public:
 	~Game();
 private:
 	void DoFrame();
-	void RotateCam();
 	void ConfineCursor();
 	void SetUpMap();
 private:

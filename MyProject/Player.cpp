@@ -23,9 +23,9 @@ bool Player::CheckCollisions(Window& wnd, Wall* wall)
 	return (wall->isOverlapping(GetPos()));
 }
 
-void Player::AddResistiveForce(DirectX::XMFLOAT3 force, float dt)
+void Player::SetPlayerSpeed(float speed)
 {
-	cam.Translate({force.x * dt * player_speed, 0, force.z * dt * player_speed });
+	player_speed = speed;
 }
 
 void Player::CheckInputs(Window& wnd)
@@ -33,6 +33,15 @@ void Player::CheckInputs(Window& wnd)
 	inputs = { (float)(wnd.kbd.KeyIsPressed('D') - (wnd.kbd.KeyIsPressed('A'))),
 		(float)(wnd.kbd.KeyIsPressed('R') - (wnd.kbd.KeyIsPressed('F'))),
 		(float)(wnd.kbd.KeyIsPressed('W') - (wnd.kbd.KeyIsPressed('S'))) };
+
+	while (const auto delta = wnd.mouse.ReadRawDelta())
+	{
+		if (!wnd.CursorEnabled())
+		{
+			rotation += (float)delta->x;
+			cam.Rotate((rotation) * rot_speed);
+		}
+	}
 }
 
 void Player::SetUp()
