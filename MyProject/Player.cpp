@@ -22,7 +22,34 @@ void Player::Update(Window& wnd, float dt)
 	for (auto& obj : projectile)
 	{
 		obj.get()->Draw(wnd.Gfx());
-		obj.get()->Update(pos, ((rotation * 0.2292f * (PI / 180)) + (2 * PI)), dt * 0.25f);
+		obj.get()->Update(pos, ((rotation * 0.22915f * (PI / 180)) + (2 * PI)), dt * 0.25f);
+	}
+}
+
+void Player::ProjectileCheckWall(Window& wnd, Wall* wall)
+{
+	for (auto& obj : projectile)
+	{
+		if (obj == NULL)
+			continue;
+		if (obj.get()->CheckWalls(wnd, wall))
+		{
+			projectile.erase(std::remove(projectile.begin(), projectile.end(), obj), projectile.end());
+		}
+	}
+}
+
+void Player::ProjectileCheckEnemy(Window& wnd, Enemy* enemy)
+{
+	for (auto& obj : projectile)
+	{
+		if (obj == NULL)
+			continue;
+		if (obj.get()->CheckEnemies(wnd, enemy))
+		{
+			enemy->SetHealth(enemy->GetHealth() - 1);
+			projectile.erase(std::remove(projectile.begin(), projectile.end(), obj), projectile.end());
+		}
 	}
 }
 

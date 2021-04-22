@@ -124,3 +124,13 @@ DirectX::XMFLOAT3 Enemy::GetPos()
 {
 	return position;
 }
+
+void Enemy::SetHealth(float h)
+{
+	health = h;
+}
+
+float Enemy::GetHealth()
+{
+	return health;
+}

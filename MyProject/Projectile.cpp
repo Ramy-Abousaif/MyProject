@@ -69,6 +69,13 @@ Projectile::Projectile(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, Dire
 	DirectX::XMMatrixScaling(accumulatedScaling.x, accumulatedScaling.y, accumulatedScaling.z) *
 		DirectX::XMMatrixRotationRollPitchYaw(0, rotY, 0) *
 		DirectX::XMMatrixTranslation(accumulatedPosition.x, accumulatedPosition.y, accumulatedPosition.z);
+
+	boundingBox.x.max = position.x + (scaling.x / 2) + 1.0f;
+	boundingBox.x.min = position.x - (scaling.x / 2) - 1.0f;
+	boundingBox.y.max = position.y + (scaling.y / 2) + 1.0f;
+	boundingBox.y.min = position.y - (scaling.y / 2) - 1.0f;
+	boundingBox.z.max = position.z + 1.0f;
+	boundingBox.z.min = position.z - 1.0f;
 }
 
 void Projectile::Update(DirectX::XMFLOAT3 player, float rotation, float dt)
@@ -88,4 +95,44 @@ void Projectile::Update(DirectX::XMFLOAT3 player, float rotation, float dt)
 void Projectile::Draw(Graphics& gfx) const noexcept (!IS_DEBUG)
 {
 	Drawable::Draw(gfx);
+}
+
+bool Projectile::CheckWalls(Window& wnd, Wall* wall)
+{
+	return (wall->isOverlapping(GetPos()));
+}
+
+bool Projectile::CheckEnemies(Window& wnd, Enemy* enemy)
+{
+	return (enemy->isOverlapping(GetPos()));
+}
+
+bool Projectile::isOverlapping(DirectX::XMFLOAT3 other)
+{
+	if ((other.x >= boundingBox.x.min && other.x <= boundingBox.x.max) &&
+		(other.y >= boundingBox.y.min && other.y <= boundingBox.y.max) &&
+		(other.z >= boundingBox.z.min && other.z <= boundingBox.z.max))
+	{
+		if (!entered)
+		{
+			contact_point = DirectX::XMFLOAT3(other.x, other.y, other.z);
+			entered = true;
+		}
+		return true;
+	}
+	else
+	{
+		entered = false;
+		return false;
+	}
+}
+
+DirectX::XMFLOAT3 Projectile::GetContactPoint()
+{
+	return contact_point;
+}
+
+DirectX::XMFLOAT3 Projectile::GetPos()
+{
+	return position;
 }

@@ -33,13 +33,21 @@ void Game::DoFrame()
 		{
 			player.SetPlayerSpeed(-50);
 		}
+		player.ProjectileCheckWall (wnd, obj.get());
 	}
 
 	//Render billboard enemies
 	for (auto& obj : enemy)
 	{
+		if (obj == NULL)
+			continue;
 		obj.get()->Draw(wnd.Gfx());
 		obj.get()->RotateTowards(player.GetPos());
+		player.ProjectileCheckEnemy(wnd, obj.get());
+		if (obj.get()->GetHealth() <= 0)
+		{
+			enemy.erase(std::remove(enemy.begin(), enemy.end(), obj), enemy.end());
+		}
 	}
 
 	wnd.Gfx().EndFrame();
@@ -137,10 +145,10 @@ void Game::SetUpMap()
 	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(10.0f, 10.0f, 10.0f),
 		dx::XMFLOAT3(-10.0f, 10.0f, 10.5f)));
 
-	enemy.push_back(std::make_unique<Enemy>(wnd.Gfx(), dx::XMFLOAT3(1.0f, 1.0f, 1.0f),
-		dx::XMFLOAT3(0.0f, 12.0f, -5.0f)));
-	enemy.push_back(std::make_unique<Enemy>(wnd.Gfx(), dx::XMFLOAT3(1.0f, 1.0f, 1.0f),
-		dx::XMFLOAT3(5.0f, 12.0f, -5.0f)));
+	enemy.push_back(std::make_unique<Enemy>(wnd.Gfx(), dx::XMFLOAT3(2.0f, 5.0f, 1.0f),
+		dx::XMFLOAT3(0.0f, 9.0f, -5.0f)));
+	enemy.push_back(std::make_unique<Enemy>(wnd.Gfx(), dx::XMFLOAT3(2.0f, 5.0f, 1.0f),
+		dx::XMFLOAT3(5.0f, 9.0f, -5.0f)));
 }
 
 

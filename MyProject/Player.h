@@ -17,6 +17,8 @@ public:
 	DirectX::XMFLOAT3 GetPos();
 	bool CheckWalls(Window& wnd, Wall* wall);
 	bool CheckEnemies(Window& wnd, Enemy* enemy);
+	void ProjectileCheckWall(Window& wnd, Wall* wall);
+	void ProjectileCheckEnemy(Window& wnd, Enemy* enemy);
 	void SetPlayerSpeed(float speed);
 	float GetSpeed();
 	float GetRot();
