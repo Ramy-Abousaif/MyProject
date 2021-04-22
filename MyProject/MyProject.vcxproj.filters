@@ -312,6 +312,9 @@
     <Image Include="Images\LeMonke.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Images\Bullet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXGetErrorDescription.inl">

@@ -27,7 +27,7 @@ Projectile::Projectile(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, Dire
 
 		AddStaticBind(std::make_unique<VertexBuffer>(gfx, model.vertices));
 
-		AddStaticBind(std::make_unique<Texture>(gfx, Surface::FromFile("Images\\cube1.png")));
+		AddStaticBind(std::make_unique<Texture>(gfx, Surface::FromFile("Images\\Bullet.png")));
 
 		AddStaticBind(std::make_unique<Sampler>(gfx));
 

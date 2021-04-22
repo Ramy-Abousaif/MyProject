@@ -228,6 +228,7 @@
   <ItemGroup>
     <Image Include="..\PogChimp1.png" />
     <Image Include="Gamepad.ico" />
+    <Image Include="Images\Bullet.png" />
     <Image Include="Images\cube.png" />
     <Image Include="Images\cube1.png" />
     <Image Include="Images\LeMonke.png" />
