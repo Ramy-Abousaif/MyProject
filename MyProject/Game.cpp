@@ -47,7 +47,6 @@ void Game::DoFrame()
 			enemy.erase(std::remove(enemy.begin(), enemy.end(), obj), enemy.end());
 		}
 	}
-	wnd.SetTitle(std::to_string(player.GetHealth()));
 
 	wnd.Gfx().EndFrame();
 }
