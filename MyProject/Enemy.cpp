@@ -27,7 +27,9 @@ Enemy::Enemy(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLO
 
 		AddStaticBind(std::make_unique<VertexBuffer>(gfx, model.vertices));
 
-		AddStaticBind(std::make_unique<Texture>(gfx, Surface::FromFile("Images\\PogChimp1.png")));
+		AddStaticBind(std::make_unique<Texture>(gfx, Surface::FromFile("Images\\LeMonke.png")));
+
+		AddStaticBind(std::make_unique<Blend>(gfx, true));
 
 		AddStaticBind(std::make_unique<Sampler>(gfx));
 

@@ -11,41 +11,66 @@ Game::Game()
 {
 	wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 400.0f));
 	SetUpMap();
+	gs = GAME_IN_PROGRESS;
 }
 
 void Game::DoFrame()
 {
 	const auto dt = timer.Mark() * speed_factor;
-	wnd.Gfx().BeginFrame(0.37f, 0.0f, 0.0f);
+	wnd.Gfx().BeginFrame(0.37f, 0.0f, 0.0f, 1.0f);
 	wnd.Gfx().SetCamera(player.cam.GetMatrix());
 	light.Bind(wnd.Gfx(), player.cam.GetMatrix());
-
-	//Update and control player
 	ConfineCursor();
-	player.Update(wnd, dt);
-
-	//Render and deal with wall collisions
-	player.SetPlayerSpeed(24);
-	for (auto& obj : wall)
+	switch (gs)
 	{
-		obj.get()->Draw(wnd.Gfx());
-		player.CheckWalls(wnd, obj.get());
-		player.ProjectileCheckWall (wnd, obj.get());
-	}
+	case GAME_LOSS:
+		game_timer += dt;
+		if (game_timer >= 2.0f)
+			exit(0);
+		break;
+	case GAME_WIN:
+		game_timer += dt;
+		if(game_timer >= 2.0f)
+			exit(0);
+		break;
+	case GAME_IN_PROGRESS:
+		//Update and control player
+		player.Update(wnd, dt);
 
-	//Render billboard enemies
-	for (auto& obj : enemy)
-	{
-		if (obj == NULL)
-			continue;
-		obj.get()->Draw(wnd.Gfx());
-		obj.get()->RotateTowards(player.GetPos());
-		player.CheckEnemies(wnd, obj.get());
-		player.ProjectileCheckEnemy(wnd, obj.get());
-		if (obj.get()->GetHealth() <= 0)
+		//Render and deal with wall collisions
+		player.SetPlayerSpeed(24);
+		for (auto& obj : wall)
 		{
-			enemy.erase(std::remove(enemy.begin(), enemy.end(), obj), enemy.end());
+			obj.get()->Draw(wnd.Gfx());
+			player.CheckWalls(wnd, obj.get());
+			player.ProjectileCheckWall(wnd, obj.get());
 		}
+
+		//Render billboard enemies
+		for (auto& obj : enemy)
+		{
+			if (obj == NULL)
+				continue;
+			obj.get()->Draw(wnd.Gfx());
+			obj.get()->RotateTowards(player.GetPos());
+			player.CheckEnemies(wnd, obj.get());
+			player.ProjectileCheckEnemy(wnd, obj.get());
+			if (obj.get()->GetHealth() <= 0)
+			{
+				enemy.erase(std::remove(enemy.begin(), enemy.end(), obj), enemy.end());
+			}
+		}
+
+		if (enemy.size() <= 0)
+		{
+			gs = GAME_WIN;
+		}
+
+		if (player.GetHealth() <= 0)
+		{
+			gs = GAME_LOSS;
+		}
+		break;
 	}
 
 	wnd.Gfx().EndFrame();

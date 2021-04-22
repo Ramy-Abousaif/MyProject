@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Blend.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Bindable.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Blend.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BindableBase.h" />
@@ -228,6 +230,7 @@
     <Image Include="Gamepad.ico" />
     <Image Include="Images\cube.png" />
     <Image Include="Images\cube1.png" />
+    <Image Include="Images\LeMonke.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DXGetErrorDescription.inl" />

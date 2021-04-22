@@ -6,6 +6,7 @@
 #include "Surface.h"
 #include "Texture.h"
 #include "Sampler.h"
+#include "Blend.h"
 
 class Enemy : public DrawableBase<Enemy>
 {

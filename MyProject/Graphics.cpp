@@ -132,9 +132,9 @@ void Graphics::EndFrame()
 	}
 }
 
-void Graphics::BeginFrame(float red, float green, float blue) noexcept
+void Graphics::BeginFrame(float red, float green, float blue, float alpha) noexcept
 {
-	const float color[] = { red,green,blue,1.0f };
+	const float color[] = { red, green, blue , alpha};
 	pContext->ClearRenderTargetView(pTarget.Get(), color);
 	pContext->ClearDepthStencilView(pDSV.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0u);
 }
