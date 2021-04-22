@@ -31,9 +31,9 @@ public:
 			float max;
 		} z;
 	};
-	Projectile(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLOAT3 accumulatedPosition);
+	Projectile(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLOAT3 accumulatedPosition, float rotation);
 	void Draw(Graphics& gfx) const noexcept (!IS_DEBUG);
-	void Update(DirectX::XMFLOAT3 player, float rotation, float dt);
+	void Update(DirectX::XMFLOAT3 player, float dt);
 	DirectX::XMMATRIX GetTransformXM() const noexcept override
 	{
 		return DirectX::XMMatrixScaling(scaling.x, scaling.y, scaling.z) *
@@ -48,6 +48,7 @@ public:
 private:
 	mutable DirectX::XMFLOAT3 position;
 	mutable DirectX::XMFLOAT3 scaling;
+	float forward = 0.0f;
 	float rotY = 0.0f;
 	DirectX::XMFLOAT3 contact_point;
 	bool entered = false;

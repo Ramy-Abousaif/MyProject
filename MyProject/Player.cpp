@@ -27,7 +27,7 @@ void Player::Update(Window& wnd, float dt)
 	for (auto& obj : projectile)
 	{
 		obj.get()->Draw(wnd.Gfx());
-		obj.get()->Update(pos, ((rotation * 0.22915f * (PI / 180)) + (2 * PI)), dt * 0.25f);
+		obj.get()->Update(pos, dt * 0.25f);
 	}
 
 	if (inv)
@@ -116,7 +116,7 @@ void Player::CheckInputs(Window& wnd, float dt)
 		if (fire_timer >= fire_rate)
 		{
 			projectile.push_back(std::make_unique<Projectile>(wnd.Gfx(), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f),
-				DirectX::XMFLOAT3(pos)));
+				DirectX::XMFLOAT3(pos), ((rotation * 0.22915f * (PI / 180)) + (2 * PI))));
 			fire_timer = 0.0f;
 		}
 		else

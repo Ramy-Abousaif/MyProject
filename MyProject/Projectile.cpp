@@ -1,7 +1,7 @@
 #include "Projectile.h"
 
 
-Projectile::Projectile(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLOAT3 accumulatedPosition)
+Projectile::Projectile(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLOAT3 accumulatedPosition, float rotation)
 {
 	namespace dx = DirectX;
 
@@ -76,9 +76,11 @@ Projectile::Projectile(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, Dire
 	boundingBox.y.min = position.y - (scaling.y / 2) - 1.0f;
 	boundingBox.z.max = position.z + 1.0f;
 	boundingBox.z.min = position.z - 1.0f;
+
+	forward = rotation;
 }
 
-void Projectile::Update(DirectX::XMFLOAT3 player, float rotation, float dt)
+void Projectile::Update(DirectX::XMFLOAT3 player, float dt)
 {
 	if ((player.z - position.z) < 0)
 	{
@@ -88,8 +90,8 @@ void Projectile::Update(DirectX::XMFLOAT3 player, float rotation, float dt)
 	{
 		rotY = atan((player.x - position.x) / (player.z - position.z)) + PI;
 	}
-	position.x += sin(rotation) + dt * 1.0f;
-	position.z += cos(rotation) + dt * 1.0f;
+	position.x += sin(forward) + dt * 1.0f;
+	position.z += cos(forward) + dt * 1.0f;
 }
 
 void Projectile::Draw(Graphics& gfx) const noexcept (!IS_DEBUG)
