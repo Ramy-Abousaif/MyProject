@@ -16,13 +16,13 @@ void Player::Update(Window& wnd, float dt)
 	if (!wnd.CursorEnabled())
 	{
 		SetUp();
-		CheckInputs(wnd);
+		CheckInputs(wnd, dt);
 		cam.Translate({ movements.x * dt * player_speed, movements.y * dt * player_speed, movements.z * dt * player_speed });
 	}
 	for (auto& obj : projectile)
 	{
 		obj.get()->Draw(wnd.Gfx());
-		obj.get()->Update(pos, dt * 2);
+		obj.get()->Update(pos, ((rotation * 0.2292f * (PI / 180)) + (2 * PI)), dt * 0.25f);
 	}
 }
 
@@ -41,22 +41,37 @@ void Player::SetPlayerSpeed(float speed)
 	player_speed = speed;
 }
 
-void Player::CheckInputs(Window& wnd)
+void Player::CheckInputs(Window& wnd, float dt)
 {
+	//Keyboard movements
 	movements = { (float)(wnd.kbd.KeyIsPressed('D') - (wnd.kbd.KeyIsPressed('A'))),
 	(float)(wnd.kbd.KeyIsPressed('R') - (wnd.kbd.KeyIsPressed('F'))),
 	(float)(wnd.kbd.KeyIsPressed('W') - (wnd.kbd.KeyIsPressed('S'))) };
 
+	//Mouse Rotation
 	while (const auto delta = wnd.mouse.ReadRawDelta())
 	{
 		rotation += (float)delta->x;
 		cam.Rotate((rotation)* rot_speed);
 	}
 
+	//Shooting
 	if (wnd.mouse.LeftIsPressed())
 	{
-		projectile.push_back(std::make_unique<Projectile>(wnd.Gfx(), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f),
-			DirectX::XMFLOAT3(pos)));
+		if (fire_timer >= fire_rate)
+		{
+			projectile.push_back(std::make_unique<Projectile>(wnd.Gfx(), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f),
+				DirectX::XMFLOAT3(pos)));
+			fire_timer = 0.0f;
+		}
+		else
+		{
+			fire_timer += dt;
+		}
+	}
+	else
+	{
+		fire_timer = fire_rate;
 	}
 }
 
@@ -68,6 +83,11 @@ void Player::SetUp()
 float Player::GetSpeed()
 {
 	return player_speed;
+}
+
+float Player::GetRot()
+{
+	return rotation;
 }
 
 float Player::GetHealth()
