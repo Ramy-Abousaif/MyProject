@@ -1,13 +1,7 @@
-#include "Sheet.h"
-#include "BindableBase.h"
-#include "GraphicsThrowMacros.h"
-#include "Plane.h"
-#include "Surface.h"
-#include "Texture.h"
-#include "Sampler.h"
+#include "Enemy.h"
 
 
-Sheet::Sheet(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLOAT3 accumulatedPosition)
+Enemy::Enemy(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLOAT3 accumulatedPosition)
 {
 	namespace dx = DirectX;
 
@@ -75,9 +69,16 @@ Sheet::Sheet(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLO
 	DirectX::XMMatrixScaling(accumulatedScaling.x, accumulatedScaling.y, accumulatedScaling.z) *
 		DirectX::XMMatrixRotationRollPitchYaw(0, rotY, 0) *
 		DirectX::XMMatrixTranslation(accumulatedPosition.x, accumulatedPosition.y, accumulatedPosition.z);
+
+	boundingBox.x.max = position.x + (scaling.x / 2) + 1.0f;
+	boundingBox.x.min = position.x - (scaling.x / 2) - 1.0f;
+	boundingBox.y.max = position.y + (scaling.y / 2) + 1.0f;
+	boundingBox.y.min = position.y - (scaling.y / 2) - 1.0f;
+	boundingBox.z.max = position.z + 1.0f;
+	boundingBox.z.min = position.z - 1.0f;
 }
 
-void Sheet::RotateTowards(DirectX::XMFLOAT3 player)
+void Enemy::RotateTowards(DirectX::XMFLOAT3 player)
 {
 	if ((player.z - position.z) < 0)
 	{
@@ -89,7 +90,47 @@ void Sheet::RotateTowards(DirectX::XMFLOAT3 player)
 	}
 }
 
-void Sheet::Draw(Graphics& gfx) const noexcept (!IS_DEBUG)
+void Enemy::Draw(Graphics& gfx) const noexcept (!IS_DEBUG)
 {
 	Drawable::Draw(gfx);
+}
+
+bool Enemy::isOverlapping(DirectX::XMFLOAT3 other)
+{
+	if ((other.x >= boundingBox.x.min && other.x <= boundingBox.x.max) &&
+		(other.y >= boundingBox.y.min && other.y <= boundingBox.y.max) &&
+		(other.z >= boundingBox.z.min && other.z <= boundingBox.z.max))
+	{
+		if (!entered)
+		{
+			contact_point = DirectX::XMFLOAT3(other.x, other.y, other.z);
+			entered = true;
+		}
+		return true;
+	}
+	else
+	{
+		entered = false;
+		return false;
+	}
+}
+
+DirectX::XMFLOAT3 Enemy::GetContactPoint()
+{
+	return contact_point;
+}
+
+DirectX::XMFLOAT3 Enemy::GetPos()
+{
+	return position;
+}
+
+void Enemy::SetHealth(float h)
+{
+	health = h;
+}
+
+float Enemy::GetHealth()
+{
+	return health;
 }

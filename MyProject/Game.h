@@ -5,6 +5,9 @@
 #include "PointLight.h"
 #include <set>
 #include <memory>
+#include <algorithm>
+#include "MyMath.h"
+#include "GDIPlusManager.h"
 
 class Game
 {
@@ -25,5 +28,5 @@ private:
 	PointLight light;
 	static constexpr size_t nDrawables = 180;
 	std::vector<std::unique_ptr<class Wall>> wall;
-	std::vector<std::unique_ptr<class Sheet>> sheet;
+	std::vector<std::unique_ptr<class Enemy>> enemy;
 };
