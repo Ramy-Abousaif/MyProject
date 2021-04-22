@@ -12,7 +12,7 @@ class Projectile : public DrawableBase<Projectile>
 public:
 	Projectile(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLOAT3 accumulatedPosition);
 	void Draw(Graphics& gfx) const noexcept (!IS_DEBUG);
-	void RotateTowards(DirectX::XMFLOAT3 player);
+	void Update(DirectX::XMFLOAT3 player, float dt);
 	DirectX::XMMATRIX GetTransformXM() const noexcept override
 	{
 		return DirectX::XMMatrixScaling(scaling.x, scaling.y, scaling.z) *

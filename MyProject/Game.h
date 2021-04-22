@@ -5,7 +5,6 @@
 #include "PointLight.h"
 #include <set>
 #include <memory>
-#include "Enemy.h"
 #include <algorithm>
 #include "MyMath.h"
 #include "GDIPlusManager.h"

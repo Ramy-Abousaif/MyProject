@@ -20,32 +20,26 @@ void Game::DoFrame()
 	wnd.Gfx().SetCamera(player.cam.GetMatrix());
 	light.Bind(wnd.Gfx(), player.cam.GetMatrix());
 
+	//Update and control player
+	ConfineCursor();
+	player.Update(wnd, dt);
 
+	//Render and deal with wall collisions
+	player.SetPlayerSpeed(24);
 	for (auto& obj : wall)
 	{
 		obj.get()->Draw(wnd.Gfx());
+		if (player.CheckWalls(wnd, obj.get()))
+		{
+			player.SetPlayerSpeed(-50);
+		}
 	}
 
+	//Render billboard enemies
 	for (auto& obj : enemy)
 	{
 		obj.get()->Draw(wnd.Gfx());
 		obj.get()->RotateTowards(player.GetPos());
-	}
-
-	ConfineCursor();
-
-	if (!wnd.CursorEnabled())
-	{
-		player.Update(wnd, dt);
-	}
-
-	player.SetPlayerSpeed(24);
-	for (auto& obj : wall)
-	{
-		if (player.CheckCollisions(wnd, obj.get()))
-		{
-			player.SetPlayerSpeed(-50);
-		}
 	}
 
 	wnd.Gfx().EndFrame();

@@ -71,7 +71,7 @@ Projectile::Projectile(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, Dire
 		DirectX::XMMatrixTranslation(accumulatedPosition.x, accumulatedPosition.y, accumulatedPosition.z);
 }
 
-void Projectile::RotateTowards(DirectX::XMFLOAT3 player)
+void Projectile::Update(DirectX::XMFLOAT3 player, float dt)
 {
 	if ((player.z - position.z) < 0)
 	{
@@ -81,6 +81,7 @@ void Projectile::RotateTowards(DirectX::XMFLOAT3 player)
 	{
 		rotY = atan((player.x - position.x) / (player.z - position.z)) + PI;
 	}
+	position.z = position.z + dt * 1.0f;
 }
 
 void Projectile::Draw(Graphics& gfx) const noexcept (!IS_DEBUG)

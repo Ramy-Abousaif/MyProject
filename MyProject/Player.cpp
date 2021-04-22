@@ -13,14 +13,27 @@ Player::~Player()
 
 void Player::Update(Window& wnd, float dt)
 {
-	SetUp();
-	CheckInputs(wnd);
-	cam.Translate({ inputs.x * dt * player_speed, inputs.y * dt * player_speed, inputs.z * dt * player_speed });
+	if (!wnd.CursorEnabled())
+	{
+		SetUp();
+		CheckInputs(wnd);
+		cam.Translate({ movements.x * dt * player_speed, movements.y * dt * player_speed, movements.z * dt * player_speed });
+	}
+	for (auto& obj : projectile)
+	{
+		obj.get()->Draw(wnd.Gfx());
+		obj.get()->Update(pos, dt * 2);
+	}
 }
 
-bool Player::CheckCollisions(Window& wnd, Wall* wall)
+bool Player::CheckWalls(Window& wnd, Wall* wall)
 {
 	return (wall->isOverlapping(GetPos()));
+}
+
+bool Player::CheckEnemies(Window& wnd, Enemy* enemy)
+{
+	return (enemy->isOverlapping(GetPos()));
 }
 
 void Player::SetPlayerSpeed(float speed)
@@ -30,25 +43,26 @@ void Player::SetPlayerSpeed(float speed)
 
 void Player::CheckInputs(Window& wnd)
 {
-	inputs = { (float)(wnd.kbd.KeyIsPressed('D') - (wnd.kbd.KeyIsPressed('A'))),
-		(float)(wnd.kbd.KeyIsPressed('R') - (wnd.kbd.KeyIsPressed('F'))),
-		(float)(wnd.kbd.KeyIsPressed('W') - (wnd.kbd.KeyIsPressed('S'))) };
+	movements = { (float)(wnd.kbd.KeyIsPressed('D') - (wnd.kbd.KeyIsPressed('A'))),
+	(float)(wnd.kbd.KeyIsPressed('R') - (wnd.kbd.KeyIsPressed('F'))),
+	(float)(wnd.kbd.KeyIsPressed('W') - (wnd.kbd.KeyIsPressed('S'))) };
 
 	while (const auto delta = wnd.mouse.ReadRawDelta())
 	{
-		if (!wnd.CursorEnabled())
-		{
-			rotation += (float)delta->x;
-			cam.Rotate((rotation) * rot_speed);
-		}
+		rotation += (float)delta->x;
+		cam.Rotate((rotation)* rot_speed);
+	}
+
+	if (wnd.mouse.LeftIsPressed())
+	{
+		projectile.push_back(std::make_unique<Projectile>(wnd.Gfx(), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f),
+			DirectX::XMFLOAT3(pos)));
 	}
 }
 
 void Player::SetUp()
 {
-	x = cam.GetPos().x;
-	y = cam.GetPos().y;
-	z = cam.GetPos().z;
+	pos = { cam.GetPos().x, cam.GetPos().y, cam.GetPos().z };
 }
 
 float Player::GetSpeed()
@@ -56,7 +70,12 @@ float Player::GetSpeed()
 	return player_speed;
 }
 
+float Player::GetHealth()
+{
+	return health;
+}
+
 DirectX::XMFLOAT3 Player::GetPos()
 {
-	return DirectX::XMFLOAT3(x, y, z);
+	return pos;
 }
