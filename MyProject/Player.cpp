@@ -13,7 +13,12 @@ Player::~Player()
 
 void Player::Update(Window& wnd, float dt)
 {
-	if (!wnd.CursorEnabled())
+	if (health <= 0)
+		isDead = true;
+	else
+		isDead = false;
+
+	if (!wnd.CursorEnabled() && !isDead)
 	{
 		SetUp();
 		CheckInputs(wnd, dt);
@@ -23,6 +28,16 @@ void Player::Update(Window& wnd, float dt)
 	{
 		obj.get()->Draw(wnd.Gfx());
 		obj.get()->Update(pos, ((rotation * 0.22915f * (PI / 180)) + (2 * PI)), dt * 0.25f);
+	}
+
+	if (inv)
+	{
+		iTimer += dt;
+		if (iTimer >= iFrames)
+		{
+			inv = false;
+			iTimer = 0.0f;
+		}
 	}
 }
 
@@ -53,19 +68,32 @@ void Player::ProjectileCheckEnemy(Window& wnd, Enemy* enemy)
 	}
 }
 
-bool Player::CheckWalls(Window& wnd, Wall* wall)
+void Player::CheckWalls(Window& wnd, Wall* wall)
 {
-	return (wall->isOverlapping(GetPos()));
+	if ((wall->isOverlapping(GetPos())))
+	{
+		SetPlayerSpeed(-50);
+	}
 }
 
-bool Player::CheckEnemies(Window& wnd, Enemy* enemy)
+void Player::CheckEnemies(Window& wnd, Enemy* enemy)
 {
-	return (enemy->isOverlapping(GetPos()));
+	if (enemy->isOverlapping(GetPos()) && !inv)
+	{
+		SetPlayerSpeed(-50);
+		SetHealth(GetHealth() - 1);
+		inv = true;
+	}
 }
 
 void Player::SetPlayerSpeed(float speed)
 {
 	player_speed = speed;
+}
+
+void Player::SetHealth(float h)
+{
+	health = h;
 }
 
 void Player::CheckInputs(Window& wnd, float dt)

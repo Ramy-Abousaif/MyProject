@@ -29,10 +29,7 @@ void Game::DoFrame()
 	for (auto& obj : wall)
 	{
 		obj.get()->Draw(wnd.Gfx());
-		if (player.CheckWalls(wnd, obj.get()))
-		{
-			player.SetPlayerSpeed(-50);
-		}
+		player.CheckWalls(wnd, obj.get());
 		player.ProjectileCheckWall (wnd, obj.get());
 	}
 
@@ -43,12 +40,14 @@ void Game::DoFrame()
 			continue;
 		obj.get()->Draw(wnd.Gfx());
 		obj.get()->RotateTowards(player.GetPos());
+		player.CheckEnemies(wnd, obj.get());
 		player.ProjectileCheckEnemy(wnd, obj.get());
 		if (obj.get()->GetHealth() <= 0)
 		{
 			enemy.erase(std::remove(enemy.begin(), enemy.end(), obj), enemy.end());
 		}
 	}
+	wnd.SetTitle(std::to_string(player.GetHealth()));
 
 	wnd.Gfx().EndFrame();
 }
@@ -146,9 +145,9 @@ void Game::SetUpMap()
 		dx::XMFLOAT3(-10.0f, 10.0f, 10.5f)));
 
 	enemy.push_back(std::make_unique<Enemy>(wnd.Gfx(), dx::XMFLOAT3(2.0f, 5.0f, 1.0f),
-		dx::XMFLOAT3(0.0f, 9.0f, -5.0f)));
+		dx::XMFLOAT3(-5.0f, 9.0f, 4.0f)));
 	enemy.push_back(std::make_unique<Enemy>(wnd.Gfx(), dx::XMFLOAT3(2.0f, 5.0f, 1.0f),
-		dx::XMFLOAT3(5.0f, 9.0f, -5.0f)));
+		dx::XMFLOAT3(10.0f, 9.0f, 4.0f)));
 }
 
 
