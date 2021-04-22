@@ -1,13 +1,7 @@
-#include "Sheet.h"
-#include "BindableBase.h"
-#include "GraphicsThrowMacros.h"
-#include "Plane.h"
-#include "Surface.h"
-#include "Texture.h"
-#include "Sampler.h"
+#include "Projectile.h"
 
 
-Sheet::Sheet(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLOAT3 accumulatedPosition)
+Projectile::Projectile(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLOAT3 accumulatedPosition)
 {
 	namespace dx = DirectX;
 
@@ -33,7 +27,7 @@ Sheet::Sheet(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLO
 
 		AddStaticBind(std::make_unique<VertexBuffer>(gfx, model.vertices));
 
-		AddStaticBind(std::make_unique<Texture>(gfx, Surface::FromFile("Images\\PogChimp1.png")));
+		AddStaticBind(std::make_unique<Texture>(gfx, Surface::FromFile("Images\\cube1.png")));
 
 		AddStaticBind(std::make_unique<Sampler>(gfx));
 
@@ -77,7 +71,7 @@ Sheet::Sheet(Graphics& gfx, DirectX::XMFLOAT3 accumulatedScaling, DirectX::XMFLO
 		DirectX::XMMatrixTranslation(accumulatedPosition.x, accumulatedPosition.y, accumulatedPosition.z);
 }
 
-void Sheet::RotateTowards(DirectX::XMFLOAT3 player)
+void Projectile::RotateTowards(DirectX::XMFLOAT3 player)
 {
 	if ((player.z - position.z) < 0)
 	{
@@ -89,7 +83,7 @@ void Sheet::RotateTowards(DirectX::XMFLOAT3 player)
 	}
 }
 
-void Sheet::Draw(Graphics& gfx) const noexcept (!IS_DEBUG)
+void Projectile::Draw(Graphics& gfx) const noexcept (!IS_DEBUG)
 {
 	Drawable::Draw(gfx);
 }

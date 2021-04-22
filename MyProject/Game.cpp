@@ -1,11 +1,4 @@
 #include "Game.h"
-#include "Sheet.h"
-#include "SkinnedBox.h"
-#include <memory>
-#include <algorithm>
-#include "MyMath.h"
-#include "Surface.h"
-#include "GDIPlusManager.h"
 
 namespace dx = DirectX;
 
@@ -33,7 +26,7 @@ void Game::DoFrame()
 		obj.get()->Draw(wnd.Gfx());
 	}
 
-	for (auto& obj : sheet)
+	for (auto& obj : enemy)
 	{
 		obj.get()->Draw(wnd.Gfx());
 		obj.get()->RotateTowards(player.GetPos());
@@ -150,9 +143,9 @@ void Game::SetUpMap()
 	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(10.0f, 10.0f, 10.0f),
 		dx::XMFLOAT3(-10.0f, 10.0f, 10.5f)));
 
-	sheet.push_back(std::make_unique<Sheet>(wnd.Gfx(), dx::XMFLOAT3(1.0f, 1.0f, 1.0f),
+	enemy.push_back(std::make_unique<Enemy>(wnd.Gfx(), dx::XMFLOAT3(1.0f, 1.0f, 1.0f),
 		dx::XMFLOAT3(0.0f, 12.0f, -5.0f)));
-	sheet.push_back(std::make_unique<Sheet>(wnd.Gfx(), dx::XMFLOAT3(1.0f, 1.0f, 1.0f),
+	enemy.push_back(std::make_unique<Enemy>(wnd.Gfx(), dx::XMFLOAT3(1.0f, 1.0f, 1.0f),
 		dx::XMFLOAT3(5.0f, 12.0f, -5.0f)));
 }
 
