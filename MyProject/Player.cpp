@@ -100,7 +100,7 @@ void Player::CheckInputs(Window& wnd, float dt)
 {
 	//Keyboard movements
 	movements = { (float)(wnd.kbd.KeyIsPressed('D') - (wnd.kbd.KeyIsPressed('A'))),
-	0.0f,
+	(float)(wnd.kbd.KeyIsPressed('R') - (wnd.kbd.KeyIsPressed('F'))),
 	(float)(wnd.kbd.KeyIsPressed('W') - (wnd.kbd.KeyIsPressed('S'))) };
 
 	//Mouse Rotation

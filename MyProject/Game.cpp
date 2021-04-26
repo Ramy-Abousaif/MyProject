@@ -109,69 +109,78 @@ void Game::ConfineCursor()
 void Game::SetUpMap()
 {
 	//floor
-	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 10.0f, 20.0f),
-		dx::XMFLOAT3(0.0f, 0.0f, -10.0f)));
-	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 10.0f, 20.0f),
-		dx::XMFLOAT3(0.0f, 0.0f, 10.0f)));
-	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 10.0f, 20.0f),
-		dx::XMFLOAT3(20.0f, 0.0f, -10.0f)));
-	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 10.0f, 20.0f),
-		dx::XMFLOAT3(-20.0f, 0.0f, 10.0f)));
-	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 10.0f, 20.0f),
-		dx::XMFLOAT3(20.0f, 0.0f, 10.0f)));
-	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 10.0f, 20.0f),
-		dx::XMFLOAT3(-20.0f, 0.0f, -10.0f)));
+	for (int i = 0; i < 100; i += 20)
+	{
+		for (int j = 0; j < 100; j += 20)
+		{
+			wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 10.0f, 20.0f),
+				dx::XMFLOAT3(i, 0.0f, j)));
+		}
+	}
 	//ceiling
-	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 10.0f, 20.0f),
-		dx::XMFLOAT3(0.0f, 30.0f, -10.0f)));
-	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 10.0f, 20.0f),
-		dx::XMFLOAT3(0.0f, 30.0f, 10.0f)));
-	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 10.0f, 20.0f),
-		dx::XMFLOAT3(20.0f, 30.0f, -10.0f)));
-	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 10.0f, 20.0f),
-		dx::XMFLOAT3(-20.0f, 30.0f, 10.0f)));
-	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 10.0f, 20.0f),
-		dx::XMFLOAT3(20.0f, 30.0f, 10.0f)));
-	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 10.0f, 20.0f),
-		dx::XMFLOAT3(-20.0f, 30.0f, -10.0f)));
+	for (int i = 0; i < 100; i += 20)
+	{
+		for (int j = 0; j < 100; j += 20)
+		{
+			wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 10.0f, 20.0f),
+				dx::XMFLOAT3(i, 30.0f, j)));
+		}
+	}
 	//right wall
-	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(10.0f, 20.0f, 20.0f),
-		dx::XMFLOAT3(30.5f, 15.0f, -10.0f)));
-	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(10.0f, 20.0f, 20.0f),
-		dx::XMFLOAT3(30.5f, 15.0f, 10.0f)));
+	for (int i = 0; i < 100; i += 20)
+	{
+		wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(10.0f, 20.0f, 20.0f),
+			dx::XMFLOAT3(90.0f, 15.0f, i)));
+	}
 	//left wall
-	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(10.0f, 20.0f, 20.0f),
-		dx::XMFLOAT3(-30.5f, 15.0f, -10.0f)));
-	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(10.0f, 20.0f, 20.0f),
-		dx::XMFLOAT3(-30.5f, 15.0f, 10.0f)));
+	for (int i = 0; i < 100; i += 20)
+	{
+		wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(10.0f, 20.0f, 20.0f),
+			dx::XMFLOAT3(0.0f, 15.0f, i)));
+	}
 	//back wall
-	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 20.0f, 10.0f),
-		dx::XMFLOAT3(-20.0f, 15.0f, -25.0f)));
-	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 20.0f, 10.0f),
-		dx::XMFLOAT3(20.0f, 15.0f, -25.0f)));
-	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 20.0f, 10.0f),
-		dx::XMFLOAT3(0.0f, 15.0f, -25.0f)));
+	for (int i = 0; i < 100; i += 20)
+	{
+		wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 20.0f, 10.0f),
+			dx::XMFLOAT3(i, 15.0f, -15.0f)));
+	}
 	//front wall
-	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 20.0f, 10.0f),
-		dx::XMFLOAT3(-20.0f, 15.0f, 25.0f)));
-	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 20.0f, 10.0f),
-		dx::XMFLOAT3(20.0f, 15.0f, 25.0f)));
-	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 20.0f, 10.0f),
-		dx::XMFLOAT3(0.0f, 15.0f, 25.0f)));
+	for (int i = 0; i < 100; i += 20)
+	{
+		wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(20.0f, 20.0f, 10.0f),
+			dx::XMFLOAT3(i, 15.0f, 90.0f)));
+	}
 	//Pillar
 	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(10.0f, 10.0f, 10.0f),
-		dx::XMFLOAT3(10.0f, 20.0f, 10.5f)));
+		dx::XMFLOAT3(30.0f, 20.0f, 12.0f)));
 	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(10.0f, 10.0f, 10.0f),
-		dx::XMFLOAT3(-10.0f, 20.0f, 10.5f)));
+		dx::XMFLOAT3(60.0f, 20.0f, 12.0f)));
 	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(10.0f, 10.0f, 10.0f),
-		dx::XMFLOAT3(10.0f, 10.0f, 10.5f)));
+		dx::XMFLOAT3(30.0f, 10.0f, 12.0f)));
 	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(10.0f, 10.0f, 10.0f),
-		dx::XMFLOAT3(-10.0f, 10.0f, 10.5f)));
+		dx::XMFLOAT3(60.0f, 10.0f, 12.0f)));
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(10.0f, 10.0f, 10.0f),
+		dx::XMFLOAT3(30.0f, 20.0f, 52.0f)));
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(10.0f, 10.0f, 10.0f),
+		dx::XMFLOAT3(60.0f, 20.0f, 52.0f)));
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(10.0f, 10.0f, 10.0f),
+		dx::XMFLOAT3(30.0f, 10.0f, 52.0f)));
+	wall.push_back(std::make_unique<Wall>(wnd.Gfx(), dx::XMFLOAT3(10.0f, 10.0f, 10.0f),
+		dx::XMFLOAT3(60.0f, 10.0f, 52.0f)));
 
+	//enemies
 	enemy.push_back(std::make_unique<Enemy>(wnd.Gfx(), dx::XMFLOAT3(2.0f, 5.0f, 1.0f),
-		dx::XMFLOAT3(-5.0f, 9.0f, 4.0f)));
+		dx::XMFLOAT3(20.0f, 9.0f, 3.0f)));
 	enemy.push_back(std::make_unique<Enemy>(wnd.Gfx(), dx::XMFLOAT3(2.0f, 5.0f, 1.0f),
-		dx::XMFLOAT3(10.0f, 9.0f, 4.0f)));
+		dx::XMFLOAT3(70.0f, 9.0f, 3.0f)));
+	enemy.push_back(std::make_unique<Enemy>(wnd.Gfx(), dx::XMFLOAT3(2.0f, 5.0f, 1.0f),
+		dx::XMFLOAT3(45.0f, 9.0f, 13.0f)));
+	enemy.push_back(std::make_unique<Enemy>(wnd.Gfx(), dx::XMFLOAT3(2.0f, 5.0f, 1.0f),
+		dx::XMFLOAT3(20.0f, 9.0f, 70.0f)));
+	enemy.push_back(std::make_unique<Enemy>(wnd.Gfx(), dx::XMFLOAT3(2.0f, 5.0f, 1.0f),
+		dx::XMFLOAT3(70.0f, 9.0f, 70.0f)));
+	enemy.push_back(std::make_unique<Enemy>(wnd.Gfx(), dx::XMFLOAT3(2.0f, 5.0f, 1.0f),
+		dx::XMFLOAT3(45.0f, 9.0f, 60.0f)));
 }
 
 

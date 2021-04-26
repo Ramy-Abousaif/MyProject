@@ -27,7 +27,7 @@ DirectX::XMMATRIX Camera::GetMatrix() const noexcept
 
 void Camera::Reset() noexcept
 {
-	pos = {5.0f, 9.0f, -5.0f};
+	pos = {45.0f, 9.0f, 40.0f};
 	rotY = 0.0f;
 }
 
